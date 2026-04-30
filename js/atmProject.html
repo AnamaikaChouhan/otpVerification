@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATM System</title>
+</head>
+<body>
+    <h1>ATM System</h1>
+    <script>
+        var pin="1234";
+        var balance=10000;
+        var enterPin=prompt("Enter your pin");
+        if(enterPin==pin){
+        var choice=parseInt(prompt("1.Check Balance \n 2.Withdrow Amount  \n 3.Change pin \n 4.Deposite Amount \n 5.Exit  \n Enter Your Choice..!"));
+         switch(choice){
+             case 1:
+            console.log("Your Balance is :",balance);
+            console.log("Thanks using ATM....!")
+
+            break
+        
+
+            case 2:var withdrow = parseInt(prompt("Enter amount for withdrow :"));
+            console.log("Total Amount :",balance)
+            console.log("withdrow amount :",withdrow)
+            console.log("After withdrow total amount :",balance-withdrow);
+            console.log("Thanks using ATM....!")
+
+            break;
+            
+
+            case 3:
+                var newPin=prompt("Enter new pin :");
+                console.log("Pin Changed Successfully.....!")
+                console.log("Old Pin:",pin);
+                console.log("New Pin:",newPin)
+               console.log("Thanks using ATM....!")
+
+                break;
+
+           case 4:
+            var deposite=parseInt(prompt("Enter Deposite Amount :"));
+            var totalAmount=balance+deposite;
+            console.log("Your Total Amount is :",totalAmount)
+            console.log("Thanks using ATM....!")
+
+            break;
+
+          case 5:
+            console.log("Thanks using ATM....!")
+            break;
+            
+         default:console.log("Invalid Choice...!")
+        }
+        }
+        else{
+            var enterPinn=prompt("Invalid PIN...!..please retry ")
+            if(enterPinn==pin){
+            var choice=parseInt(prompt("1.Check Balance \n 2.Withdrow Amount  \n 3.Change pin \n 4.Deposite Amount \n 5.Exit  \n Enter Your Choice..!"));
+            }
+        }
+
+       
+           
+    </script>
+</body>
+</html>
