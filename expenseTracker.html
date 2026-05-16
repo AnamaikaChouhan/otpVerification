@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expence Tracker</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles/expenseTracker.css" />
+  </head>
+  <body>
+    <h1>Expense Tracker</h1>
+    <div class="container">
+      <form id="add-form">
+        <label for="">Entry Type</label>
+        <select name="" id="type">
+          <option value="income">Income</option>
+          <option value="expense">Exapense</option>
+        </select>
+        <label for="">Category</label>
+        <input type="text" name="category" id="category" placeholder="name" />
+
+        <label for="">Amount</label>
+        <input type="number" name="" id="amount" placeholder="add amount" />
+
+        <button type="submit">Add</button>
+      </form>
+
+      <div>
+        <p id="balance">Balance:0</p>
+        <p id="income">Income:</p>
+        <p id="expense">Expense:</p>
+
+        <h3>Transaction List</h3>
+        <ul id="list"></ul>
+      </div>
+    </div>
+
+    <script>
+      let addForm = document.getElementById("add-form");
+      let list = document.getElementById("list");
+      let balance = document.getElementById("balance");
+      let income = document.getElementById("income");
+      let expense = document.getElementById("expense");
+
+      let totalBalance = 0;
+      let totalIncome = 0;
+      let totalExpense = 0;
+
+      addForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        let type = document.getElementById("type").value;
+        let category = document.getElementById("category").value;
+        let amount = Number(document.getElementById("amount").value);
+
+        if (type === "expense" && totalBalance <= 0) {
+          alert("No income available!");
+
+          return;
+        }
+
+        if (type === "income") {
+          totalIncome += amount;
+          totalBalance += amount;
+        } else {
+          totalExpense += amount;
+          totalBalance -= amount;
+        }
+        income.innerText = "Income : ₹" + totalIncome;
+        expense.innerText = "Expense : ₹" + totalExpense;
+        balance.innerText = "Balance : ₹" + totalBalance;
+
+        let li = document.createElement("li");
+        li.innerText = `${type} - ${category} - ₹${amount}`;
+        list.appendChild(li);
+
+        let formData = {
+          type: type,
+          category: category,
+          amount: amount,
+        };
+        localStorage.setItem("expenseData", JSON.stringify(formData));
+
+        let getData = JSON.parse(localStorage.getItem("expenseData"));
+        console.log(getData);
+      });
+    </script>
+  </body>
+</html>
