@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes App....created by anu</title>
+    <link rel="stylesheet" href="styles/notesApp.css" />
+  </head>
+  <body>
+    <h1>Notes App</h1>
+
+    <form id="myForm">
+      <div class="add-note">
+        <label>Title</label>
+        <input type="text" placeholder="Enter title" id="title" />
+
+        <label>Description</label>
+        <textarea placeholder="Write something..." id="description"></textarea>
+
+        <button type="submit">Add Notes</button>
+      </div>
+    </form>
+
+    <!-- Notes -->
+
+    <div class="notes-container" id="notesContainer"></div>
+
+    <script>
+      let form = document.getElementById("myForm");
+      let notesContainer = document.getElementById("notesContainer");
+
+      let notes = JSON.parse(localStorage.getItem("addNote")) || [];
+
+      if (!Array.isArray(notes)) {
+        notes = [];
+      }
+
+      displayNotes();
+
+      // Add Note
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        let title = document.getElementById("title").value.trim();
+        let description = document.getElementById("description").value.trim();
+        
+          // Validation
+        if (title === "" || description === "") {
+          alert("Please fill title and description!");
+          return;
+        }
+        
+        let formData = {
+          title,
+          description,
+        };
+
+        notes.push(formData);
+
+        localStorage.setItem("addNote", JSON.stringify(notes));
+
+        displayNotes();
+
+        form.reset();
+      });
+
+      // Display Notes
+
+      function displayNotes() {
+        notesContainer.innerHTML = "";
+
+        notes.forEach((note, index) => {
+          notesContainer.innerHTML += `
+
+        <div class="note-card">
+
+          <h2>${note.title}</h2>
+
+          <p>${note.description}</p>
+
+          <div class="btn-group">
+
+            <button class="edit-btn" onclick="editNote(${index})">
+              Edit
+            </button>
+
+            <button class="delete-btn" onclick="deleteNote(${index})">
+              Delete
+            </button>
+
+          </div>
+
+        </div>
+
+        `;
+        });
+      }
+
+      // Delete Note
+
+      function deleteNote(index) {
+        notes.splice(index, 1);
+
+        localStorage.setItem("addNote", JSON.stringify(notes));
+
+        displayNotes();
+      }
+
+      // Edit Note
+
+      function editNote(index) {
+        document.getElementById("title").value = notes[index].title;
+
+        document.getElementById("description").value = notes[index].description;
+
+        notes.splice(index, 1);
+
+        localStorage.setItem("addNote", JSON.stringify(notes));
+
+        displayNotes();
+      }
+    </script>
+  </body>
+</html>
