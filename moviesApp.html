@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies APP</title>
+    <link rel="stylesheet" href="styles/moviesApp.css">
+
+</head>
+<body>
+    <h1>Movie Search App</h1>
+    <p>Discover and explore your favorit movies like never before with our intuitive Movie Search App,your ultimate cinematic companion.</p>
+    
+    <div>
+        <input type="text" placeholder="Search movie......" id="searchBox"> 
+        <button id="searchBtn">Search</button>
+
+    </div>
+ <div id="movies"></div>
+
+
+  <script>
+
+    let searchBtn = document.getElementById("searchBtn");
+    let moviesDiv = document.getElementById("movies");
+
+    searchBtn.addEventListener("click", () => {
+
+      let searchValue = document.getElementById("searchBox").value;
+
+      loadMovies(searchValue);
+
+    });
+
+
+    async function loadMovies(searchTerm){
+
+    const url = `https://omdbapi.com/?s=${searchTerm}&apikey=434e59fa`;
+
+      const res = await fetch(url);
+
+      const data = await res.json();
+
+      moviesDiv.innerHTML = "";
+
+      if(data.Search){
+
+        data.Search.forEach(movie => {
+
+          moviesDiv.innerHTML += `
+
+            <div class="movie">
+
+              <div class="img">
+                <img src="${movie.Poster}" alt="movie-img">
+              </div>
+
+              <div class="content">
+
+                <h2 class="title">${movie.Title}</h2>
+
+                <p><b>Year:</b> ${movie.Year}</p>
+
+                <p><b>Type:</b> ${movie.Type}</p>
+
+                <p><b>IMDb ID:</b> ${movie.imdbID}</p>
+
+              </div>
+
+            </div>
+
+          `;
+
+        });
+
+      }else{
+        moviesDiv.innerHTML = `<h2>Movie Not Found</h2>`;
+      }
+
+    }
+
+  </script>
+
+</body>
+</html>

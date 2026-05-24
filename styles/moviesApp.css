@@ -1,0 +1,184 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body{
+    background: #0f172a;
+    color: white;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+/* Heading */
+
+h1{
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: #38bdf8;
+}
+
+body > p{
+    max-width: 750px;
+    margin: auto;
+    text-align: center;
+    color: #cbd5e1;
+    line-height: 1.7;
+    margin-bottom: 40px;
+}
+
+/* Search Box */
+
+body > div:first-of-type{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+}
+
+#searchBox{
+    width: 420px;
+    max-width: 100%;
+    padding: 15px 18px;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background: #1e293b;
+    color: white;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+#searchBox:focus{
+    border: 2px solid #38bdf8;
+}
+
+#searchBox::placeholder{
+    color: #94a3b8;
+}
+
+#searchBtn{
+    padding: 14px 30px;
+    border: none;
+    border-radius: 12px;
+    background: #38bdf8;
+    color: #0f172a;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#searchBtn:hover{
+    background: #0ea5e9;
+    transform: translateY(-2px);
+}
+
+/* Movie Card */
+
+.movie{
+    max-width: 1000px;
+    width: 100%;
+    margin: 20px auto;
+    background: #1e293b;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    transition: 0.3s;
+}
+
+.movie:hover{
+    transform: translateY(-5px);
+}
+
+.img{
+    flex: 1;
+    min-width: 250px;
+}
+
+.img img{
+    width: 100%;
+    border-radius: 16px;
+    object-fit: cover;
+}
+
+.content{
+    flex: 2;
+}
+
+.title{
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #38bdf8;
+}
+
+.content p{
+    margin-bottom: 12px;
+    color: #e2e8f0;
+    font-size: 1rem;
+}
+
+.content b{
+    color: #facc15;
+}
+
+/* Genre Tags */
+
+.content p:nth-child(6),
+.content p:nth-child(7),
+.content p:nth-child(8){
+    display: inline-block;
+    background: #334155;
+    padding: 8px 14px;
+    border-radius: 30px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+/* Responsive */
+
+@media(max-width: 768px){
+
+    h1{
+        font-size: 2.2rem;
+    }
+
+    .movie{
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .img{
+        width: 100%;
+        min-width: 100%;
+    }
+
+    .content{
+        width: 100%;
+    }
+
+    .title{
+        font-size: 1.8rem;
+    }
+
+    #searchBtn{
+        width: 100%;
+    }
+
+    #searchBox{
+        width: 100%;
+    }
+}
