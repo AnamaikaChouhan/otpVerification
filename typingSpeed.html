@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typing Test App</title>
+    <link rel="stylesheet" href="styles/typingSpeed.css" />
+  </head>
+  <body>
+    <div class="main">
+    <div class="container">
+      <h1>Typing Speed Test</h1>
+      <p>using HTML,CSS & Javascript</p>
+      <p id="text-to-type">
+      The sun rises in the morning and birds sing sweet songs. Children play in the park and people go to work. A good day starts with a happy smile and positive thoughts.
+      </p>
+      <textarea id="user-input" placeholder="Start Typing..." rows="10" cols="60" maxlength="200"> </textarea>
+      <div class="sec">
+      <h2 id="timer">Time Left: 0</h2>
+      <select id="timeSelect">
+        <option value="60">1 Min</option>
+        <option value="120">2 Min</option>
+        <option value="180">3 Min</option>
+        <option value="300">5 Min</option>
+      </select>
+      
+      <button id="startBtn">Start Test</button>
+      </div>
+      
+      
+      <div id="result">
+        <h2>Your Results:</h2>
+        <p id="accuracy">Accuarcy: 0%</p>
+        <p id="wpm">Words per minuts: 0</p>
+      
+      </div>
+    </div>
+    </div>
+
+    <script>
+      let quote = document.getElementById("text-to-type").innerText;
+      let userInput = document.getElementById("user-input");
+      let startBtn = document.getElementById("submit-btn");
+      let startTime = Date.now();
+       let timer;
+      let timeLeft;
+
+      userInput.addEventListener("input", () => {
+        const inputUser = userInput.value;
+        let correctChars = 0;
+        for (let i = 0; i < inputUser.length; i++) {
+          if (inputUser[i] === quote[i]) {
+            correctChars++;
+          }
+        }
+
+        if (quote.length > 0) {
+          let accuracy = (correctChars / quote.length) * 100;
+
+          document.getElementById("accuracy").innerText =
+            `Accuracy : ${accuracy.toFixed(2)}%`;
+        } else {
+          document.getElementById("accuracy").innerText = "Accuracy : 0%";
+        }
+        const wpm = (
+          inputUser.split(" ").length /
+          ((Date.now() - startTime) / 60000)
+        ).toFixed(2);
+        document.getElementById("wpm").innerText = `words per minutes : ${wpm}`;
+      });
+
+     
+
+      document.getElementById("startBtn").addEventListener("click", () => {
+        clearInterval(timer);
+
+        timeLeft = Number(document.getElementById("timeSelect").value);
+
+        updateTimer();
+
+        timer = setInterval(() => {
+          timeLeft--;
+
+          updateTimer();
+
+          if (timeLeft <= 0) {
+            clearInterval(timer);
+
+            alert("Time Over!");
+          }
+        }, 1000);
+      });
+
+      function updateTimer() {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        document.getElementById("timer").innerText =
+          `Time : ${minutes}:${seconds}`;
+      }
+    </script>
+  </body>
+</html>
