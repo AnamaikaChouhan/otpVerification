@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OTP Verification</title>
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: blanchedalmond;
+      }
+      .main-container {
+        background-color: white;
+        border-radius: 10px;
+      }
+      img {
+        width: 500px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* gap:20px; */
+      }
+      .content-div {
+        text-align: center;
+        padding: 19px;
+      }
+      .input-div {
+        padding: 10px;
+      }
+      input {
+        border: 1px solid #e4bee4e3;
+        padding: 17px 24px;
+        width: 20px;
+        outline: none;
+        border-radius: 11px;
+        margin: 4px;
+        font-size: 24px;
+      }
+      button {
+        background-color: #e4bee4e3;
+        padding: 19px;
+        width: 100%;
+        border-radius: 10px;
+        border: none;
+        /* color: white; */
+        font-size: 20px;
+        margin: 11px 0px;
+        cursor: pointer;
+      }
+
+      #messageBox {
+        margin-top: 15px;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 20px;
+        display: none;
+      }
+      #para {
+        margin-top: 0px;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 20px;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="container">
+        <img src="./lock2.jpg" alt="Logo Img" />
+
+        <div class="content-div">
+          <h1>Verify OTP</h1>
+          <p>Please type the verification code sent to +919234XXXXXX</p>
+          <div class="input-div">
+            <input
+              type="tel"
+              maxlength="1"
+              oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            />
+            <input
+              type="tel"
+              maxlength="1"
+              oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            />
+            <input
+              type="tel"
+              maxlength="1"
+              oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            />
+            <input
+              type="tel"
+              maxlength="1"
+              oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            />
+          </div>
+          <div id="messageBox"></div>
+
+          <button id="generateBtn">Generate OTP</button>
+          <button id="verifyBtn">Verifiy Code</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      //       let generatedOTP = "";
+
+      //       let generateBtn = document.querySelector("#generateBtn");
+
+      //       let verifyBtn = document.querySelector("#verifyBtn");
+
+      //       let inputs = document.querySelectorAll(".input-div input");
+
+      //       // Auto focus next input
+
+      //       inputs.forEach((input, index) => {
+      //         input.addEventListener("input", () => {
+      //           if (input.value.length == 1) {
+      //             if (index < inputs.length - 1) {
+      //               inputs[index + 1].focus();
+      //             }
+      //           }
+      //         });
+      //       });
+
+      //       // Generate OTP
+
+      //       generateBtn.addEventListener("click", () => {
+      //         generatedOTP = Math.floor(1000 + Math.random() * 9000);
+
+      //         console.log("Generated OTP:", generatedOTP);
+      //       });
+
+      //       // Verify OTP
+
+      //       verifyBtn.addEventListener("click", () => {
+      //         let enteredOTP = "";
+
+      //         inputs.forEach((input) => {
+      //           enteredOTP += input.value;
+      //         });
+
+      //         console.log("Entered OTP:", enteredOTP);
+      //          if (enteredOTP.length < 4) {
+
+      //     alert("Please Generate OTP");
+
+      //     return;
+
+      //   }
+      //         if (enteredOTP == generatedOTP) {
+      //           alert("OTP Verified");
+
+      //         } else {
+      //           alert("Invalid OTP");
+
+      //         }
+
+      //          inputs.forEach((input) => {
+
+      //     input.value = "";
+
+      //   });
+
+      //   // First input focus
+
+      //   inputs[0].focus();
+
+      //       });
+
+      let generatedOTP = "";
+
+      let generateBtn = document.querySelector("#generateBtn");
+
+      let verifyBtn = document.querySelector("#verifyBtn");
+
+      let inputs = document.querySelectorAll(".input-div input");
+
+      let messageBox = document.querySelector("#messageBox");
+
+      // Auto focus next input
+
+      inputs.forEach((input, index) => {
+        input.addEventListener("input", () => {
+          if (input.value.length == 1) {
+            if (index < inputs.length - 1) {
+              inputs[index + 1].focus();
+            }
+          }
+          input.addEventListener("keydown", (e) => {
+            if (e.key === "Backspace" && input.value === "") {
+              if (index > 0) {
+                inputs[index - 1].focus();
+              }
+            }
+          });
+        });
+
+        // Paste OTP
+input.addEventListener("contextmenu", async (e) => {
+
+  e.preventDefault();
+
+  let pastedData = await navigator.clipboard.readText();
+
+  pastedData = pastedData.replace(/[^0-9]/g, "");
+
+  pastedData.split("").forEach((num, i) => {
+
+    let currentIndex = index + i;
+
+    if (inputs[currentIndex]) {
+      inputs[currentIndex].value = num;
+    }
+
+  });
+
+
+          // Focus last filled input
+          let lastIndex = pastedData.length - 1;
+
+          if (inputs[lastIndex]) {
+            inputs[lastIndex].focus();
+          }
+        });
+        });
+      
+
+      // Generate OTP
+
+      generateBtn.addEventListener("click", () => {
+        generatedOTP = Math.floor(1000 + Math.random() * 9000);
+        //  navigator.clipboard.writeText(generatedOTP);
+        console.log("Generated OTP:", generatedOTP);
+
+        messageBox.style.display = "block";
+
+        messageBox.style.color = "blue";
+        messageBox.style.border = "1px solid blue";
+        messageBox.innerHTML = `
+  OTP generated successfully <br>
+  <small>Your OTP is: <b  id="otpText">${generatedOTP}</b></small>
+`;
+        document.getElementById("otpText").addEventListener("click", () => {
+          navigator.clipboard.writeText(generatedOTP);
+          window
+            .getSelection()
+            .selectAllChildren(document.getElementById("otpText"));
+        });
+      });
+
+      // Verify OTP
+
+      verifyBtn.addEventListener("click", () => {
+        let enteredOTP = "";
+
+        inputs.forEach((input) => {
+          enteredOTP += input.value;
+        });
+
+        console.log("Entered OTP:", enteredOTP);
+
+        // Empty OTP check
+
+        if (enteredOTP.length < 4) {
+          messageBox.style.display = "block";
+
+          messageBox.style.color = "orange";
+          messageBox.style.border = "1px solid orange";
+          messageBox.innerText = "Please Generate OTP";
+
+          return;
+        }
+
+        // OTP Match check
+
+        if (enteredOTP == generatedOTP) {
+          messageBox.style.display = "block";
+          messageBox.style.border = "1px solid green";
+          messageBox.style.color = "green";
+
+          messageBox.innerText = "OTP Verified";
+        } else {
+          messageBox.style.display = "block";
+
+          messageBox.style.color = "red";
+          messageBox.style.border = "1px solid red";
+
+          messageBox.innerText = "Invalid OTP...Retry";
+        }
+
+        // Clear inputs
+
+        inputs.forEach((input) => {
+          input.value = "";
+        });
+
+        // Focus first input
+
+        inputs[0].focus();
+      });
+    </script>
+  </body>
+</html>
